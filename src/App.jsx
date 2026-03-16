@@ -47,18 +47,34 @@ const BRACKET = {
 };
 
 const RATINGS = {
-  "Duke":97,"Siena":42,"Ohio State":72,"TCU":70,"St. John's":83,"Northern Iowa":60,
-  "Kansas":79,"Cal Baptist":55,"Louisville":74,"South Florida":66,"Michigan State":84,
+  // East — Duke #1 overall KenPom, but Caleb Foster injury knocks them down
+  "Duke":93,"Siena":42,"Ohio State":72,"TCU":70,
+  "St. John's":82,"Northern Iowa":60,"Kansas":76,"Cal Baptist":55,
+  "Louisville":74,"South Florida":66,"Michigan State":84,
   "North Dakota St.":55,"UCLA":73,"UCF":68,"UConn":91,"Furman":44,
-  "Florida":90,"Prairie View A&M":38,"Clemson":76,"Iowa":69,"Vanderbilt":80,
-  "McNeese":62,"Nebraska":80,"Troy":50,"North Carolina":75,"VCU":70,"Illinois":82,
+  // South — Florida top-10 both ends, Vanderbilt #12 KenPom dark horse
+  "Florida":90,"Prairie View A&M":38,"Clemson":76,"Iowa":69,
+  "Vanderbilt":83,"McNeese":62,"Nebraska":80,"Troy":50,
+  // UNC loses Caleb Wilson (season-ending thumb), knocked down
+  "North Carolina":71,"VCU":70,"Illinois":85,
   "Penn":55,"Saint Mary's":76,"Texas A&M":72,"Houston":89,"Idaho":48,
-  "Arizona":95,"LIU":40,"Villanova":74,"Utah State":73,"Wisconsin":76,"High Point":63,
-  "Arkansas":82,"Hawaii":56,"BYU":73,"Texas":65,"Gonzaga":87,"Kennesaw State":48,
-  "Miami (FL)":78,"Missouri":66,"Purdue":88,"Queens":46,"Michigan":93,"UMBC":45,
-  "Georgia":74,"Saint Louis":71,"Texas Tech":76,"Akron":64,"Alabama":79,"Hofstra":52,
-  "Tennessee":78,"Miami (OH)":75,"Virginia":86,"Wright State":54,"Kentucky":72,
-  "Santa Clara":67,"Iowa State":88,"Tennessee State":46,
+  // West — Arizona best team per KenPom (top-5 O, top-3 D), Gonzaga down w/ Huff injury
+  "Arizona":96,"LIU":40,"Villanova":74,"Utah State":73,
+  "Wisconsin":75,"High Point":63,
+  // Arkansas top-5 offense, 46th defense — offensive powerhouse
+  "Arkansas":83,"Hawaii":56,
+  // BYU loses Richie Saunders (knee), but still has AJ Dybantsa
+  "BYU":78,"Texas":65,
+  // Gonzaga down — Braden Huff out with knee injury
+  "Gonzaga":83,"Kennesaw State":48,
+  "Miami (FL)":78,"Missouri":66,"Purdue":88,"Queens":46,
+  // Midwest — Michigan #1 defense nationally per KenPom
+  "Michigan":93,"UMBC":45,"Georgia":74,"Saint Louis":71,
+  // Texas Tech down — JT Toppin ACL tear
+  "Texas Tech":69,"Akron":67,"Alabama":79,"Hofstra":52,
+  "Tennessee":78,"Miami (OH)":76,"Virginia":86,"Wright State":54,
+  // Kentucky — Jayden Quaintance played just 4 games, limited depth
+  "Kentucky":70,"Santa Clara":67,"Iowa State":88,"Tennessee State":46,
 };
 
 const RC = {
@@ -629,19 +645,29 @@ function ChampTab({champC,avgW,n}){
 // ANALYSIS
 // ─────────────────────────────────────────────────────────────
 const TEAM_CTX={
-  "Duke":{notes:"17-2 Q1 record, ACC champ, Cameron Boozer generational talent",risk:"tournament pressure on freshmen"},
-  "Arizona":{notes:"record 12 wins vs ranked teams, elite 2-way AJ Dybantsa",risk:"Big 12 SOS questions"},
-  "Michigan":{notes:"dominant frontcourt, elite interior D, Big Ten runner-up",risk:"lost Big Ten final raises questions"},
-  "Florida":{notes:"defending champions, battle-tested identity",risk:"lost to Vanderbilt in SEC semis days before tourney"},
-  "UConn":{notes:"Dan Hurley dynasty, elite defense, deep roster",risk:"took some soft February losses"},
-  "Houston":{notes:"top-5 defense, home regionals in Houston, elite rebounding",risk:"halfcourt offense can stall"},
-  "Iowa State":{notes:"elite 3-pt shooting, physical defense, deep bench",risk:"struggled vs elite athleticism"},
-  "Purdue":{notes:"peaked at right time, Big Ten champions, beat Michigan in title",risk:"can be exploited by pace teams"},
-  "Gonzaga":{notes:"30-win pedigree, elite pace, Mark Few tournament system",risk:"WCC SOS concerns"},
-  "Virginia":{notes:"pack-line D, 29-5, low turnover offense",risk:"slow pace can backfire vs elite athletes"},
-  "Michigan State":{notes:"Tom Izzo March magic, elite toughness",risk:"inconsistent offense"},
-  "Vanderbilt":{notes:"SCORCHING HOT — beat Florida AND Arkansas in SEC tourney",risk:"SEC tournament fatigue entering March"},
-  "Miami (OH)":{notes:"31-1 near-perfect season, real Cinderella",risk:"MAC schedule concerns vs power conf"},
+  "Duke":{notes:"#4 offense, #2 defense per KenPom — elite balance. Caleb Foster (foot fracture) and Patrick Ngongba II (foot soreness) both injured entering tournament",risk:"Two key players injured — Foster unlikely unless Duke makes deep run"},
+  "Arizona":{notes:"Best team per KenPom — top-5 offense, top-3 defense. Jaden Bradley (Big 12 POY), Brayden Burries (15.9 ppg), Koa Peat healthy. No weaknesses. Tied with Duke for most ranked wins ever (12)",risk:"Highest expectations = most pressure. Any off night ends the run"},
+  "Michigan":{notes:"#1 defense in the nation per KenPom, top-10 offense. L.J. Cason injury a concern entering tournament",risk:"L.J. Cason injury limits offensive ceiling — lost Big Ten final to Purdue"},
+  "Florida":{notes:"Defending national champions, top-10 offense (#9) and defense (#6) per KenPom. Battle-tested identity under Todd Golden",risk:"Lost to Vanderbilt by 17 in SEC semis — confidence questions entering March"},
+  "UConn":{notes:"Dan Hurley dynasty, elite defense, deep experienced roster, 29-5",risk:"Took some soft February losses — not as dominant as last two years"},
+  "Houston":{notes:"Top-5 defense nationally, playing home regionals in Houston. Elite rebounding and physical defense under Kelvin Sampson",risk:"Halfcourt offense can stall against elite defenses — scored just 47 pts vs Kansas in Big 12 tourney"},
+  "Iowa State":{notes:"Elite 3-pt shooting, physical defense, Keshon Gilbert is one of the best guards in the field. 27-7",risk:"Jaden Bradley hit an all-timer to beat them in the Big 12 semis — vulnerabilities vs elite guards"},
+  "Purdue":{notes:"Big Ten champions, beat Michigan in title game. #2 offense nationally per KenPom, Matt Painter tournament experience",risk:"#37 defense is a real concern — opponents can score on them"},
+  "Gonzaga":{notes:"30-3, WCC dominance, Mark Few system. Elite pace and spacing",risk:"Braden Huff (knee injury) out — unlikely to play first two games. Losing their best big man is massive"},
+  "Virginia":{notes:"29-5, pack-line defense suffocates opponents, Tony Bennett system is tournament-tested, #13 KenPom",risk:"Slow pace can backfire vs elite athletes in single-elimination"},
+  "Michigan State":{notes:"Tom Izzo March magic — 9 Final Fours. Elite toughness and experience in big moments",risk:"Inconsistent offense limits ceiling — not the most talented Izzo squad"},
+  "Illinois":{notes:"#1 offense nationally per KenPom, Kasparas Jakucionis is a lottery pick. Big Ten battle-tested, 24-8",risk:"#28 defense — opponents can score on them, and they've been inconsistent late in the season"},
+  "Arkansas":{notes:"SEC champions, #5 offense nationally per KenPom, Darius Acuff Jr. is one of the most electric guards in the field. John Calipari motivated",risk:"#46 defense is a glaring weakness — can be exposed by patient, efficient offenses"},
+  "Vanderbilt":{notes:"#12 KenPom Net Rating — massively underseeded at 5. Beat Florida (defending champions) by 17 in the SEC semis. Best dark horse bet in the field",risk:"#95 defensive efficiency — solid but not elite. Rely on offense to carry them"},
+  "BYU":{notes:"AJ Dybantsa is the consensus #1 pick in the 2026 NBA Draft — generational talent. 23-11",risk:"Lost Richie Saunders to a season-ending knee injury in February — losing a senior leader hurts"},
+  "Texas Tech":{notes:"#12 offense per KenPom — can score with anyone",risk:"JT Toppin (21.8 pts, 10.8 reb) tore his ACL — their best player is gone. Without him they are a completely different team. Fade hard"},
+  "North Carolina":{notes:"Beat Duke this season, Seth Trimble is an elite defender, Henri Veesaar is a tough matchup for opposing bigs",risk:"Caleb Wilson (best player) has a season-ending broken thumb. Hard ceiling without him. Outside top-30 KenPom in both O and D"},
+  "Miami (OH)":{notes:"31-1, near-perfect season, MAC champion. Travis Steele system. One of the best mid-major rosters in years",risk:"MAC schedule concerns — haven't faced anyone close to a high-major opponent all season"},
+  "Akron":{notes:"29-5, school-record wins, three straight MAC titles. Larry Johnson, Tyshawn Archie, Javon Garcia combine for 44 ppg. Top-70 KenPom",risk:"First-weekend opponent matters — matchup-dependent upset threat"},
+  "Saint Mary's":{notes:"Top-25 KenPom Net Rating, 18th in defensive efficiency, 27-5. Randy Bennett system is elite",risk:"109th in effective field goal % — can't shoot well enough to make a deep run"},
+  "Tennessee":{notes:"Elite defense (#39 defensive efficiency), physical and versatile under Rick Barnes",risk:"173rd in effective field goal % — almost no offense. Gets exposed when forced to score"},
+  "St. John's":{notes:"Big East champion, beat UConn in conference tourney, Rick Pitino. Top-15 defense nationally",risk:"Struggles to score in halfcourt — ranked poorly in offensive efficiency. Shot 35.8% in last year's tournament loss"},
+  "Kansas":{notes:"Bill Self coaching, top-15 defense. Tournament pedigree is unmatched",risk:"Darryn Peterson injury/drama hurt them all year — scored just 47 points in Big 12 loss to Houston. No offensive consistency"},
 };
 function generateAnalysis(res){
   const{champC,ffC,roundWins,avgW,n,finalsC}=res;
