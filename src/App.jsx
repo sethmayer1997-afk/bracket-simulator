@@ -781,6 +781,68 @@ function ShareCard({simResults,myPicks,onClose}){
 }
 
 // ─────────────────────────────────────────────────────────────
+// FANDUEL AFFILIATE BANNER
+// ─────────────────────────────────────────────────────────────
+const FANDUEL_URL = "https://fndl.co/gk69d1s";
+
+function FanDuelBanner({position="top"}){
+  const isTop = position === "top";
+  return(
+    <a
+      href={FANDUEL_URL}
+      target="_blank"
+      rel="noopener noreferrer sponsored"
+      style={{display:"block",textDecoration:"none",margin: isTop ? "0 0 12px" : "12px 0 0"}}
+    >
+      <div style={{
+        background:"linear-gradient(135deg,#1a4a1a,#0a2a0a)",
+        border:"1px solid #1a6b1a",
+        borderRadius:"8px",
+        padding:"10px 16px",
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"space-between",
+        gap:"12px",
+        flexWrap:"wrap",
+        cursor:"pointer",
+        transition:"all 0.2s",
+      }}
+        onMouseEnter={e=>e.currentTarget.style.borderColor="#22aa22"}
+        onMouseLeave={e=>e.currentTarget.style.borderColor="#1a6b1a"}
+      >
+        <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
+          <div style={{background:"#1493ff",borderRadius:"5px",padding:"4px 10px",fontFamily:"'Oswald',sans-serif",fontWeight:700,fontSize:"0.85rem",color:"#fff",letterSpacing:"0.05em",flexShrink:0}}>
+            FanDuel
+          </div>
+          <div>
+            <div style={{fontFamily:"'Oswald',sans-serif",fontSize:"0.82rem",color:"#88ee44",letterSpacing:"0.06em"}}>
+              🏆 BET ON YOUR BRACKET PICKS
+            </div>
+            <div style={{fontSize:"0.62rem",color:"#3a6a3a",marginTop:"1px"}}>
+              Get a No Sweat First Bet up to $1,000 · Must be 21+ · Terms apply
+            </div>
+          </div>
+        </div>
+        <div style={{
+          background:"#1493ff",
+          color:"#fff",
+          padding:"7px 16px",
+          borderRadius:"5px",
+          fontFamily:"'Oswald',sans-serif",
+          fontSize:"0.78rem",
+          letterSpacing:"0.1em",
+          fontWeight:600,
+          flexShrink:0,
+          whiteSpace:"nowrap",
+        }}>
+          BET NOW →
+        </div>
+      </div>
+    </a>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // APP
 // ─────────────────────────────────────────────────────────────
 export default function App(){
@@ -848,7 +910,7 @@ export default function App(){
       <div style={{background:"linear-gradient(180deg,#06122a,transparent)",padding:"16px 16px 10px",textAlign:"center",borderBottom:"1px solid #1e90ff12"}}>
         <div style={{fontSize:"0.58rem",letterSpacing:"0.3em",color:"#1e90ff",marginBottom:"2px",fontFamily:"'Oswald',sans-serif"}}>🏀 2026 NCAA MARCH MADNESS</div>
         <h1 style={{fontSize:"clamp(1.3rem,3.2vw,2.1rem)",fontFamily:"'Oswald',sans-serif",fontWeight:700,margin:"0 0 2px",background:"linear-gradient(135deg,#fff,#80b8f0)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>BRACKET SIMULATOR</h1>
-        <p style={{color:"#243444",fontSize:"0.62rem",margin:0,letterSpacing:"0.12em"}}>500 SIMS · ROUND STATS · CINDERELLA · H2H · MY PICKS · SHARE</p>
+        <p style={{color:"#8aaccc",fontSize:"0.62rem",margin:0,letterSpacing:"0.12em"}}>500 SIMS · ROUND STATS · CINDERELLA · H2H · MY PICKS · SHARE</p>
       </div>
 
       <div style={{maxWidth:"1100px",margin:"0 auto",padding:"12px 10px"}}>
@@ -856,11 +918,11 @@ export default function App(){
         {/* MODE SWITCHER */}
         <div style={{display:"flex",gap:"6px",justifyContent:"center",marginBottom:"12px"}}>
           <button className="modetab" onClick={()=>setMode("sim")}
-            style={{background:mode==="sim"?"#0e2a52":"#060c18",border:`1px solid ${mode==="sim"?"#1e90ff55":"#1e3040"}`,color:mode==="sim"?"#80b8f0":"#3a5268"}}>
+            style={{background:mode==="sim"?"#0e2a52":"#060c18",border:`1px solid ${mode==="sim"?"#1e90ff55":"#1e3040"}`,color:mode==="sim"?"#80b8f0":"#8aaccc"}}>
             🎲 SIMULATE
           </button>
           <button className="modetab" onClick={()=>setMode("picks")}
-            style={{background:mode==="picks"?"#1a3a0a":"#060c18",border:`1px solid ${mode==="picks"?"#88ee44":"#1e3040"}`,color:mode==="picks"?"#88ee44":"#3a5268"}}>
+            style={{background:mode==="picks"?"#1a3a0a":"#060c18",border:`1px solid ${mode==="picks"?"#88ee44":"#1e3040"}`,color:mode==="picks"?"#88ee44":"#8aaccc"}}>
             ✏️ MY PICKS {pickCount>0?`(${pickCount}/${TOTAL_GAMES})`:""}
           </button>
         </div>
@@ -922,8 +984,8 @@ export default function App(){
             {!results&&!loading&&(
               <div style={{textAlign:"center",padding:"44px 20px"}}>
                 <div style={{fontSize:"2rem",marginBottom:"8px"}}>🎲</div>
-                <div style={{fontFamily:"'Oswald',sans-serif",fontSize:"0.85rem",letterSpacing:"0.1em",color:"#1e3040"}}>Run 500 simulations of the full 2026 bracket</div>
-                <div style={{fontSize:"0.68rem",marginTop:"5px",color:"#101820"}}>Or switch to ✏️ My Picks to fill out your own bracket first</div>
+                <div style={{fontFamily:"'Oswald',sans-serif",fontSize:"0.85rem",letterSpacing:"0.1em",color:"#8aaccc"}}>Run 500 simulations of the full 2026 bracket</div>
+                <div style={{fontSize:"0.68rem",marginTop:"5px",color:"#8aaccc"}}>Or switch to ✏️ My Picks to fill out your own bracket first</div>
               </div>
             )}
           </>
@@ -969,7 +1031,22 @@ export default function App(){
           </div>
         )}
 
-        <div style={{marginTop:"14px",textAlign:"center",fontSize:"0.54rem",color:"#0e1e28",letterSpacing:"0.1em"}}>REAL 2026 NCAA BRACKET · SELECTION SUNDAY MARCH 15 2026</div>
+        {/* BOTTOM FANDUEL BANNER */}
+        <FanDuelBanner position="bottom"/>
+
+        {/* FOOTER / DISCLAIMER */}
+        <div style={{marginTop:"16px",paddingTop:"12px",borderTop:"1px solid #0d1828",textAlign:"center"}}>
+          <div style={{fontSize:"0.54rem",color:"#8aaccc",letterSpacing:"0.1em",marginBottom:"6px"}}>
+            REAL 2026 NCAA BRACKET · SELECTION SUNDAY MARCH 15 2026
+          </div>
+          <div style={{fontSize:"0.56rem",color:"#8aaccc",lineHeight:1.6,maxWidth:"700px",margin:"0 auto"}}>
+            This site is not affiliated with or endorsed by the NCAA, any university, or any athletic conference.
+            Team names and related marks are the property of their respective institutions.
+            Simulation results are for entertainment purposes only and do not constitute betting advice.
+            Must be 21+ and present in a legal sports betting state to wager with FanDuel. Gambling problem?
+            Call 1-800-GAMBLER.
+          </div>
+        </div>
       </div>
 
       {showShare&&<ShareCard simResults={results} myPicks={picksResolved} onClose={()=>setShowShare(false)}/>}
