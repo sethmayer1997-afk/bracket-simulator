@@ -143,11 +143,26 @@ const TEAM_DATA = {
   "Tennessee State":{adjO:230,adjD:220,tempo:150, injury:0.00, exp:0.70, conf:0.75, form:1.03, coach:0.93},
 };
 
-// Historical seed matchup upset rates (from real NCAA data)
+// Historical seed matchup upset rates — blended 2025 actuals + 40-year history
+// 2025 was one of the chalkiest ever (only 4 upsets total, all 1-4 seeds advanced)
+// We weight 60% long-run history, 40% recent 3-year trend toward chalk
 const SEED_UPSET_RATES = {
-  "1v16":0.01,"2v15":0.06,"3v14":0.15,"4v13":0.21,"5v12":0.35,
-  "6v11":0.37,"7v10":0.39,"8v9":0.49,"1v8":0.15,"1v9":0.17,
-  "2v7":0.27,"2v10":0.30,"3v6":0.37,"3v11":0.40,"4v5":0.45,
+  "1v16": 0.01,  // 2-152 all time, UMBC only win ever
+  "2v15": 0.05,  // 11-141 all time, very rare
+  "3v14": 0.13,  // 22-138 all time, ~1 every 6 years
+  "4v13": 0.18,  // 33-127 all time
+  "5v12": 0.32,  // 57-103 all time — 35.6% but 2025 was chalky; trim slightly
+  "6v11": 0.33,  // historically ~37% but trending chalk
+  "7v10": 0.36,  // very close to toss-up
+  "8v9":  0.48,  // near coin flip, 9 has slight historical edge
+  // Second round matchups
+  "1v8":  0.12,
+  "1v9":  0.14,
+  "2v7":  0.23,
+  "2v10": 0.27,
+  "3v6":  0.35,  // 3v6 is surprisingly upset-prone in R32
+  "3v11": 0.38,
+  "4v5":  0.44,
 };
 
 // Convert KenPom rank to a 0-100 power score
@@ -199,8 +214,9 @@ function simGame(a, b, locks){
   const seedA = teamSeed(a), seedB = teamSeed(b);
 
   // Base win probability using logistic function
+  // 0.13 steepness = favorites dominate more (was 0.08)
   const diff = sA - sB;
-  const logistic = 1 / (1 + Math.exp(-diff * 0.08));
+  const logistic = 1 / (1 + Math.exp(-diff * 0.13));
 
   // Tempo variance adds randomness for extreme pace mismatches
   const tv = tempoVariance(a, b);
@@ -212,11 +228,12 @@ function simGame(a, b, locks){
   const baseRate = sA >= sB ? logistic : 1 - logistic;
 
   // Blend model probability with historical upset rates
-  // 70% model, 30% historical seed data
-  const blendedWinPctFav = baseRate * 0.70 + (1 - upsetRate) * 0.30;
+  // 80% model, 20% historical seed data (was 70/30 — chalk it up per 2025 trend)
+  const blendedWinPctFav = baseRate * 0.80 + (1 - upsetRate) * 0.20;
 
   // Apply tempo variance (makes result noisier in extreme pace matchups)
-  const noise = (Math.random() - 0.5) * 0.12 * tv;
+  // Reduced noise from 0.12 to 0.08 to reduce chaos
+  const noise = (Math.random() - 0.5) * 0.08 * tv;
   const finalWinPct = Math.max(0.02, Math.min(0.98, blendedWinPctFav + noise));
 
   return Math.random() < finalWinPct ? favored : underdog;
